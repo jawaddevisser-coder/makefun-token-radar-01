@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Launch Radar — pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div>
+      <p class="eyebrow">DEFI LLAMA SNAPSHOT &middot; <span id="asof"></span></p>
+      <h1>Token Launch Radar</h1>
+      <p class="sub">Every protocol without a token yet, ranked by what its token would be worth if the protocol&rsquo;s record stayed as it is — and exactly how to farm it before it launches.</p>
+    </div>
+    <div class="top-note">
+      <p><strong>Read this first:</strong> implied values are this radar&rsquo;s own estimates from the snapshot&rsquo;s figures. They are not predictions that a token will be issued, or when.</p>
+    </div>
+  </div>
+</header>
+
+<section class="stats" id="stats"></section>
+
+<section class="controls" aria-label="Filter and sort">
+  <input id="q" type="search" placeholder="Search name or slug…" autocomplete="off">
+  <select id="scope" aria-label="Scope">
+    <option value="pretoken" selected>Pre-token only</option>
+    <option value="watchlist">Watchlist only</option>
+    <option value="all">Pre-token + live comparables</option>
+  </select>
+  <select id="cat" aria-label="Category"></select>
+  <select id="chain" aria-label="Chain"></select>
+  <select id="sort" aria-label="Sort by">
+    <option value="implied" selected>Sort: implied value</option>
+    <option value="tvl">Sort: TVL</option>
+    <option value="growth">Sort: 7-day change</option>
+    <option value="age">Sort: age</option>
+    <option value="name">Sort: name A–Z</option>
+  </select>
+</section>
+
+<p class="count" id="count"></p>
+
+<main>
+  <table id="board">
+    <thead>
+      <tr>
+        <th class="num">#</th>
+        <th>Protocol</th>
+        <th>Category</th>
+        <th>Chains</th>
+        <th class="num">TVL</th>
+        <th class="num">7d</th>
+        <th class="num">Age</th>
+        <th class="num">Implied value</th>
+        <th class="num">Farm cost</th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+
+  <section id="detail" class="detail" hidden></section>
+</main>
+
+<section class="method">
+  <h2>How the value is worked out</h2>
+  <p id="formula"></p>
+  <p>The multiple is the median market-cap-to-TVL ratio of the live protocols in the same category that report both numbers (the global median when a category has fewer than three). Growth is the seven-day TVL change, clamped to −25%…+80%. Maturity rises with days since listing, up to three years. Breadth adds 3% per extra chain, up to ten. Live protocols are not modelled: their implied value is their market cap, the market&rsquo;s own number, shown so a reader can compare a pre-token protocol against what already trades.</p>
+  <h3>Category multiples used</h3>
+  <table class="mults"><thead><tr><th>Category</th><th class="num">Multiple</th><th class="num">Live sample</th></tr></thead><tbody id="mults"></tbody></table>
+  <p class="fine">Data: DefiLlama public protocols snapshot, fetched once and frozen for this radar. Protocols below the $50M watchlist floor are still ranked by the same model — the floor is never the whole board. Wrapped, staked, bridged, versioned and exchange products are not ranked as launch candidates; they are listed below with the reason, so nothing is hidden. Nothing here is investment advice.</p>
+</section>
+
+<section class="method">
+  <h2>Not ranked as launch candidates</h2>
+  <p>These protocols record no token, but the house&rsquo;s own rule identifies them as a wrapped, staked or bridged product of a token that already trades, a versioned name, or an exchange product. Farming them for a token that will never exist would be bad advice, so they carry no implied value and no farm plan — they are listed here, with the reason, instead of being silently dropped.</p>
+  <table class="mults"><thead><tr><th>Protocol</th><th>Category</th><th class="num">TVL</th><th>Reason</th></tr></thead><tbody id="excluded"></tbody></table>
+</section>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
